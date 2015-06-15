@@ -1,0 +1,9 @@
+home:
+    pattern: /
+    controller: Keyword\Controller\Search
+result:
+    pattern: /result/(url)/(keyword)
+    controller: Keyword\Controller\Result
+search:
+    pattern: /fetch/(url)/(keyword)
+    controller: Keyword\Controller\Fetch

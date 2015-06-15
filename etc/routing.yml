@@ -1,0 +1,12 @@
+home:
+  pattern: '/'
+  package: keyword
+page:
+  pattern: 'page'
+  controller: 'Acme\Controller\Page\'
+cover:
+  pattern: 'cover'
+  controller: 'Acme\Controller\Cover\'
+user:
+  pattern: '/'
+  package: wwuser
