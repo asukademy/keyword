@@ -3,6 +3,7 @@
 <html lang="zh-tw">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('siteTitle', 'Google / Yahoo 關鍵字排名查詢')</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="http://simular.co/templates/tz_jollyany_joomla/favicon.ico" />
