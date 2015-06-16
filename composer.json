@@ -15,6 +15,7 @@
 		"symfony/yaml" : "2.*@stable",
 		"filp/whoops": "1.*@stable",
         "joomla/http": "1.*@stable",
+        "guzzlehttp/guzzle": "~6.0",
         "paquettg/php-html-parser": "1.6.*@stable",
 		"fzaninotto/faker": "~1.0@stable",
         "illuminate/view": "4.*@stable",
