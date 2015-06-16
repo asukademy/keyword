@@ -41,6 +41,13 @@ class YahooEngine extends AbstractEngine
 		'n' => 100
 	];
 
+	/**
+	 * getPage
+	 *
+	 * @param string $keyword
+	 *
+	 * @return  string
+	 */
 	public function getPage($keyword)
 	{
 		$uri = $this->prepareUri();

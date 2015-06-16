@@ -27,6 +27,11 @@ class SaveController extends Controller
 	 */
 	protected function doExecute()
 	{
+		if (!$this->checkCaptcha())
+		{
+			return $this->backToSearch('驗證碼錯誤');
+		}
+
 		$keyword = $this->input->getString('keyword');
 		$url     = $this->input->getUrl('url');
 
@@ -94,5 +99,22 @@ class SaveController extends Controller
 		$this->setRedirect($this->package->router->buildHttp('home', $query), $msg);
 
 		return false;
+	}
+
+	/**
+	 * checkCaptcha
+	 *
+	 * @return  boolean
+	 */
+	protected function checkCaptcha()
+	{
+		$gRecaptchaResponse = $this->input->post->get('g-recaptcha-response');
+		$remoteIp = $this->input->server->get('REMOTE_ADDR');
+
+		$recaptcha = new \ReCaptcha\ReCaptcha($this->app->get('recaptcha.secret'));
+
+		$response = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
+
+		return $response->isSuccess();
 	}
 }

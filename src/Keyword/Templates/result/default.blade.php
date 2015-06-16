@@ -33,6 +33,9 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="g-recaptcha col-md-offset-2 col-md-10" data-sitekey="6Lc0aggTAAAAAAzpAmFMKhTG7Z7UsHdu1r-TZAuv"></div>
+                </div>
+                <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">再次查詢</button>
                     </div>

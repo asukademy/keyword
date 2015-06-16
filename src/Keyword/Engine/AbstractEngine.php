@@ -40,8 +40,23 @@ abstract class AbstractEngine
 	 */
 	protected $query = [];
 
+	/**
+	 * getPage
+	 *
+	 * @param string $keyword
+	 *
+	 * @return  string
+	 */
 	abstract public function getPage($keyword);
 
+	/**
+	 * getOrdering
+	 *
+	 * @param string $url
+	 * @param string $keyword
+	 *
+	 * @return  string
+	 */
 	abstract public function getOrdering($url, $keyword);
 
 	/**

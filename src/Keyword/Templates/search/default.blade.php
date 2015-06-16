@@ -9,8 +9,8 @@
                 <h2>Google / Yahoo 關鍵字排名查詢</h2>
 
                 <p>
-                    本工具可協助你快速查詢你的網站在 Yahoo , Google 主要搜尋引擎的關鍵字排行,若只輸入網址,可以查詢Google Page Rank
-                    排名以繁體中文網站為主 ,搜尋結果100名以外顯示為0, 請在下列欄位輸入網站網址及欲查詢的關鍵字
+                    本工具可以快速協助您查詢 Google / Yahoo 的關鍵字排名，輸入您要搜尋的關鍵字以及網址，就能得到排名結果。超過 100 名或查詢不到都會以 0 顯示。
+                    如果出現「Something error」表示短期內查詢量太大，請稍後再來查詢
                 </p>
 
                 <div class="messages">
@@ -30,6 +30,9 @@
                     <div class="col-sm-10">
                         <input type="text" name="url" class="form-control" id="urlInput" value="{{{ $url }}}" placeholder="欲查詢的網址">
                     </div>
+                </div>
+                <div class="form-group">
+                    <div class="g-recaptcha col-md-offset-2 col-md-10" data-sitekey="6Lc0aggTAAAAAAzpAmFMKhTG7Z7UsHdu1r-TZAuv"></div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">

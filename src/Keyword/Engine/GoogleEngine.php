@@ -43,6 +43,13 @@ class GoogleEngine extends AbstractEngine
 		'ie' => 'UTF-8'
 	];
 
+	/**
+	 * getPage
+	 *
+	 * @param string $keyword
+	 *
+	 * @return  string
+	 */
 	public function getPage($keyword)
 	{
 		$uri = $this->prepareUri();
@@ -89,7 +96,7 @@ class GoogleEngine extends AbstractEngine
 			{
 				$link = $cite->href;
 			}
-			
+
 			$link = urldecode($link);
 
 			if (strpos($link, $url) !== false)
