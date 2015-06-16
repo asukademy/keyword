@@ -9,6 +9,7 @@
 namespace Keyword\Model;
 
 use Joomla\Http\HttpFactory;
+use Keyword\Helper\Regular;
 use Windwalker\Core\Model\Model;
 use Windwalker\Data\Data;
 use Windwalker\DataMapper\DataMapper;
@@ -37,12 +38,11 @@ class SearchModel extends Model
 
 		$server = $servers[array_rand($servers)];
 
-		$server = ltrim($server, '/') . '/fetch/' . $url . '/' . $keyword;
+		$server = ltrim($server, '/') . '/fetch/' . Regular::encode($url) . '/' . $keyword;
 
 		$http = HttpFactory::getHttp(array(), 'curl');
 
 		$response = $http->get($server);
-		show($response);die;
 
 		if ($response->code != 200)
 		{
@@ -50,17 +50,20 @@ class SearchModel extends Model
 		}
 
 		$result = new Registry($response->body);
-
 		$mapper = new DataMapper('results');
+		$data   = new Data;
 
-		$data = new Data;
+		if (!$result['success'])
+		{
+			throw new \RuntimeException('Please try again');
+		}
 
-		$data->keyword = $keyword;
-		$data->url     = $url;
+		$data->keyword = urldecode($keyword);
+		$data->url     = urldecode($url);
 		$data->google  = $result['data.google'];
 		$data->yahoo   = $result['data.yahoo'];
 
-		$mapper->updateOne($data, ['url', 'kayword']);
+		$mapper->updateOne($data, ['url', 'keyword']);
 
 		return true;
 	}
@@ -75,6 +78,9 @@ class SearchModel extends Model
 	 */
 	public function init($url, $keyword)
 	{
+		$url = urldecode($url);
+		$keyword = urldecode($keyword);
+
 		$mapper = new DataMapper('results');
 
 		if ($mapper->findOne(['keyword' => $keyword, 'url' => $url])->notNull())

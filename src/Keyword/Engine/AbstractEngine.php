@@ -6,9 +6,10 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-namespace Engine;
+namespace Keyword\Engine;
 
 use Joomla\Http\HttpFactory;
+use Windwalker\Registry\Registry;
 use Windwalker\Uri\Uri;
 
 /**
@@ -67,15 +68,21 @@ abstract class AbstractEngine
 	 */
 	protected function get($url)
 	{
-		$http = HttpFactory::getHttp([], 'curl');
+		$options = [];
+		$options['transport.curl'] = [
+			CURLOPT_SSL_VERIFYHOST => 0,
+			CURLOPT_SSL_VERIFYPEER => 0,
+		];
 
-		$responce = $http->get($url);
+		$http = HttpFactory::getHttp($options, 'curl');
 
-		if ($responce->code != 200)
+		$response = $http->get($url);
+
+		if ($response->code != 200)
 		{
 			throw new \RuntimeException('Request error');
 		}
 
-		return $responce->body;
+		return $response->body;
 	}
 }

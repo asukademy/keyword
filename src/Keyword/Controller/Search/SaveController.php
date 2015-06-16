@@ -8,6 +8,7 @@
 
 namespace Keyword\Controller\Search;
 
+use Keyword\Helper\Regular;
 use Keyword\Model\SearchModel;
 use Windwalker\Core\Controller\Controller;
 use Windwalker\Uri\Uri;
@@ -28,6 +29,8 @@ class SaveController extends Controller
 	{
 		$keyword = $this->input->getString('keyword');
 		$url     = $this->input->getUrl('url');
+
+		$keyword = Regular::sanitize($keyword);
 
 		$keyword = trim($keyword);
 		$url = trim($url);
@@ -66,6 +69,8 @@ class SaveController extends Controller
 
 			return $this->backToSearch('Some thing error', 'danger');
 		}
+
+		$url = Regular::encode($url);
 
 		$this->setRedirect($this->package->router->buildHttp('result', ['keyword' => $keyword, 'url' => $url]));
 

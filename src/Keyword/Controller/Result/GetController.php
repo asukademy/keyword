@@ -8,6 +8,7 @@
 
 namespace Keyword\Controller\Result;
 
+use Keyword\Helper\Regular;
 use Windwalker\Core\Controller\Controller;
 
 /**
@@ -24,6 +25,48 @@ class GetController extends Controller
 	 */
 	protected function doExecute()
 	{
+		$url = $this->input->getUrl('url');
+		$keyword = $this->input->getString('keyword');
 
+		$keyword = Regular::sanitize($keyword);
+		$url = Regular::decode($url);
+
+		if (!$keyword)
+		{
+			return $this->backToSearch('關鍵字未輸入');
+		}
+
+		if (!$url)
+		{
+			return $this->backToSearch('網址未輸入');
+		}
+
+		$view = $this->getView();
+		$model = $this->getModel();
+
+		$view['url'] = $url;
+		$view['keyword'] = $keyword;
+		$view['result'] = $model->getResult($url, $keyword);
+
+		return $view->render();
+	}
+
+	/**
+	 * backToSearch
+	 *
+	 * @param string $msg
+	 *
+	 * @return  boolean
+	 */
+	protected function backToSearch($msg)
+	{
+		$query = [
+			'keyword' => $this->input->getVar('keyword'),
+			'url' => $this->input->getVar('url'),
+		];
+
+		$this->setRedirect($this->package->router->buildHttp('home', $query), $msg);
+
+		return false;
 	}
 }

@@ -8,6 +8,7 @@
 
 namespace Keyword\View\Result;
 
+use Windwalker\Core\Router\Router;
 use Windwalker\Core\View\BladeHtmlView;
 
 /**
@@ -26,6 +27,8 @@ class ResultHtmlView extends BladeHtmlView
 	 */
 	protected function prepareData($data)
 	{
-
+		$data->action = Router::buildHtml('keyword:home');
+		$data->url = urldecode($data->url);
+		$data->keyword = urldecode($data->keyword);
 	}
 }

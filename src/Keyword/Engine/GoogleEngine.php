@@ -6,8 +6,9 @@
  * @license    GNU General Public License version 2 or later;
  */
 
-namespace Engine;
+namespace Keyword\Engine;
 
+use Joomla\Uri\Uri;
 use PHPHtmlParser\Dom;
 
 /**
@@ -66,16 +67,26 @@ class GoogleEngine extends AbstractEngine
 		$dom = new Dom;
 		$dom->load($body);
 
-		$cites = $dom->find('.g .s .kv cite');
+		$cites = $dom->find('.g h3.r a');
 
 		$url = urldecode($url);
 
 		$i = 1;
 		$found = false;
 
+		if (!count($cites))
+		{
+			throw new \RuntimeException('Google no response', 1201);
+		}
+
 		foreach ($cites as $k => $cite)
 		{
-			if (strpos($cite->text, $url) !== false)
+			$link = $cite->href;
+			$link = new Uri($link);
+			$link = $link->getVar('q');
+			$link = urldecode($link);
+
+			if (strpos($link, $url) !== false)
 			{
 				$found = true;
 

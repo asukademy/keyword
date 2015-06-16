@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <title>@yield('siteTitle', 'Google / Yahoo 關鍵字排名查詢')</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ $uri['base.path'] }}media/images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://simular.co/templates/tz_jollyany_joomla/favicon.ico" />
     <meta name="generator" content="The Time Machine" />
+    <meta property="og:image" content="http://i.imgur.com/evQv6pK.png"/>
     @yield('meta')
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -33,7 +34,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                      @section('nav')
-                        <li class="active"><a href="{{ $uri['base.path'] }}">Home</a></li>
+                        <li class="active"><a href="{{ $uri['base.path'] }}">首頁</a></li>
                      @show
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -56,7 +57,7 @@
                     <hr />
 
                     <footer>
-                        &copy; Windwalker {{ $datetime->format('Y') }}
+                        &copy; Powered by <a href="http://simular.co" target="_blank">Simular</a> {{ $datetime->format('Y') }}
                     </footer>
                 </div>
             </div>

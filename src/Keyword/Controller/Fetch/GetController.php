@@ -8,7 +8,10 @@
 
 namespace Keyword\Controller\Fetch;
 
-use Engine\GoogleEngine;
+use Keyword\Buffer\JsonBuffer;
+use Keyword\Engine\GoogleEngine;
+use Keyword\Engine\YahooEngine;
+use Keyword\Helper\Regular;
 use Windwalker\Core\Controller\Controller;
 
 /**
@@ -29,6 +32,9 @@ class GetController extends Controller
 		$keyword = $this->input->getString('keyword');
 		$url     = $this->input->getUrl('url');
 
+		$keyword = Regular::sanitize($keyword);
+		$url = Regular::decode($url);
+
 		$keyword = trim($keyword);
 		$url = trim($url);
 
@@ -42,7 +48,32 @@ class GetController extends Controller
 			throw new \Exception('網址未輸入');
 		}
 
-		$engine = new GoogleEngine;
-		$engine->getOrdering($url, $keyword);
+		try
+		{
+			$engine = new GoogleEngine;
+			$gOrdering = $engine->getOrdering($url, $keyword);
+
+			$engine = new YahooEngine;
+			$yOrdering = $engine->getOrdering($url, $keyword);
+		}
+		catch (\Exception $e)
+		{
+			$buffer = new JsonBuffer;
+			$buffer->code = $e->getCode();
+			$buffer->success = false;
+			$buffer->message = $e->getMessage();
+
+			$this->app->response->setMimeType('text/json');
+
+			return $buffer;
+		}
+
+		$buffer = new JsonBuffer;
+		$buffer->data['google'] = $gOrdering;
+		$buffer->data['yahoo'] = $yOrdering;
+
+		$this->app->response->setMimeType('text/json');
+
+		return $buffer;
 	}
 }
