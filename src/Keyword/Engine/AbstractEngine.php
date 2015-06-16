@@ -8,7 +8,6 @@
 
 namespace Keyword\Engine;
 
-use GuzzleHttp\Client;
 use Joomla\Http\HttpFactory;
 use Windwalker\Registry\Registry;
 use Windwalker\Uri\Uri;
@@ -69,31 +68,16 @@ abstract class AbstractEngine
 	 */
 	protected function get($url)
 	{
-//		$options = [];
-//		$options['transport.curl'] = [
-//			CURLOPT_SSL_VERIFYPEER => 0,
-//			CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.835.163 Safari/535.1",
-//			CURLOPT_HTTPHEADER => array(
-//				'CLIENT-IP:8.8.8.8',
-//				'X-FORWARDED-FOR:8.8.8.9',
-//				'X-FORWARDED:8.8.8.10',
-//				'X-CLUSTER-CLIENT_IP:8.8.8.11',
-//				'FORWARDED-FOR:8.8.8.12',
-//				'FORWARDED:8.8.8.13',
-//				'REMOTE-ADDR:8.8.8.14' //REMOTE-ADDR 無法偽造
-//			)
-//		];
-//
-//		$http = HttpFactory::getHttp($options, 'curl');
-//
-//		$response = $http->get($url);
+		$options = [];
+		$options['transport.curl'] = [
+			CURLOPT_SSL_VERIFYPEER => 0,
+			CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.835.163 Safari/535.1",
+		];
 
-		$client = new Client([
-			'verify' => false
-		]);
+		$http = HttpFactory::getHttp($options, 'curl');
 
-		$response = $client->get($url);
+		$response = $http->get($url);
 
-		return $response->getBody();
+		return $response->body;
 	}
 }
