@@ -8,9 +8,12 @@
 
 namespace Keyword\Controller\Search;
 
+use Keyword\Date\DateHelper;
 use Keyword\Helper\Regular;
+use Keyword\Model\LogModel;
 use Keyword\Model\SearchModel;
 use Windwalker\Core\Controller\Controller;
+use Windwalker\Data\Data;
 use Windwalker\Uri\Uri;
 
 /**
@@ -54,8 +57,8 @@ class SaveController extends Controller
 
 		$url->setScheme(null);
 
-		$url = urlencode($url->toString());
-		$keyword = urlencode($keyword);
+		$url = urldecode($url->toString());
+		$keyword = urldecode($keyword);
 
 		$model = new SearchModel;
 
@@ -63,7 +66,21 @@ class SaveController extends Controller
 
 		try
 		{
-			$model->search($url, $keyword);
+			$result = $model->search($url, $keyword);
+
+			$model->addSearchTimes($url, $keyword);
+
+			$logModel = new LogModel;
+
+			$data = new Data;
+			$data['url'] = $url;
+			$data['keyword'] = $keyword;
+			$data['google'] = $result->google;
+			$data['yahoo'] = $result->yahoo;
+			$data['time'] = (new \DateTime('now', DateHelper::getTaipeiZone()))->format(DateHelper::FORMAT_SQL);
+			$data['ipv4'] = $this->input->server->get('REMOTE_ADDR');
+
+			$logModel->save($data);
 		}
 		catch (\Exception $e)
 		{
@@ -72,10 +89,11 @@ class SaveController extends Controller
 				throw $e;
 			}
 
-			return $this->backToSearch('Some thing error', 'danger');
+			return $this->backToSearch('Something error', 'danger');
 		}
 
-		$url = Regular::encode($url);
+		$url = Regular::encode(urlencode($url));
+		$keyword = urlencode($keyword);
 
 		$this->setRedirect($this->package->router->buildHttp('result', ['keyword' => $keyword, 'url' => $url]));
 

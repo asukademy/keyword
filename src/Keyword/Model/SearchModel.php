@@ -9,7 +9,10 @@
 namespace Keyword\Model;
 
 use Joomla\Http\HttpFactory;
+use Keyword\Date\DateHelper;
 use Keyword\Helper\Regular;
+use Keyword\Table\Table;
+use Windwalker\Core\Model\DatabaseModel;
 use Windwalker\Core\Model\Model;
 use Windwalker\Data\Data;
 use Windwalker\DataMapper\DataMapper;
@@ -20,7 +23,7 @@ use Windwalker\Registry\Registry;
  * 
  * @since  {DEPLOY_VERSION}
  */
-class SearchModel extends Model
+class SearchModel extends DatabaseModel
 {
 	/**
 	 * search
@@ -28,7 +31,7 @@ class SearchModel extends Model
 	 * @param string $url
 	 * @param string $keyword
 	 *
-	 * @return  bool
+	 * @return  Data
 	 */
 	public function search($url, $keyword)
 	{
@@ -38,7 +41,7 @@ class SearchModel extends Model
 
 		$server = $servers[array_rand($servers)];
 
-		$server = ltrim($server, '/') . '/fetch/' . Regular::encode($url) . '/' . $keyword;
+		$server = ltrim($server, '/') . '/fetch/' . Regular::encode(urlencode($url)) . '/' . urlencode($keyword);
 
 		$http = HttpFactory::getHttp(array(), 'curl');
 
@@ -58,14 +61,14 @@ class SearchModel extends Model
 			throw new \RuntimeException('Please try again');
 		}
 
-		$data->keyword = urldecode($keyword);
-		$data->url     = urldecode($url);
+		$data->keyword = $keyword;
+		$data->url     = $url;
 		$data->google  = $result['data.google'];
 		$data->yahoo   = $result['data.yahoo'];
 
 		$mapper->updateOne($data, ['url', 'keyword']);
 
-		return true;
+		return $data;
 	}
 
 	/**
@@ -78,9 +81,6 @@ class SearchModel extends Model
 	 */
 	public function init($url, $keyword)
 	{
-		$url = urldecode($url);
-		$keyword = urldecode($keyword);
-
 		$mapper = new DataMapper('results');
 
 		if ($mapper->findOne(['keyword' => $keyword, 'url' => $url])->notNull())
@@ -88,7 +88,36 @@ class SearchModel extends Model
 			return true;
 		}
 
-		$mapper->createOne(['keyword' => $keyword, 'url' => $url]);
+		$data = ['keyword' => $keyword, 'url' => $url];
+
+		$data['created'] = (new \DateTime('now', DateHelper::getTaipeiZone()))->format('Y-m-d H:i:s');
+
+		$mapper->createOne($data);
+
+		return true;
+	}
+
+	/**
+	 * addSearchTimes
+	 *
+	 * @param string $url
+	 * @param string $keyword
+	 *
+	 * @return  bool
+	 */
+	public function addSearchTimes($url, $keyword)
+	{
+		$query = $this->db->getQuery(true);
+
+		$date = (new \DateTime('now', DateHelper::getTaipeiZone()))->format(DateHelper::FORMAT_SQL);
+
+		$query->update(Table::RESULTS)
+			->set('searches = searches + 1')
+			->set('last_search = ' . $query->quote($date))
+			->where('url = ' . $query->quote($url))
+			->where('keyword = ' . $query->quote($keyword));
+
+		$this->db->setQuery($query)->execute();
 
 		return true;
 	}
