@@ -78,11 +78,6 @@ abstract class AbstractEngine
 
 		$response = $http->get($url);
 
-		if ($response->code != 200)
-		{
-			throw new \RuntimeException('Request error');
-		}
-
 		return $response->body;
 	}
 }
