@@ -84,6 +84,12 @@ class GoogleEngine extends AbstractEngine
 			$link = $cite->href;
 			$link = new Uri($link);
 			$link = $link->getVar('q');
+
+			if (!$link)
+			{
+				$link = $cite->href;
+			}
+			
 			$link = urldecode($link);
 
 			if (strpos($link, $url) !== false)
