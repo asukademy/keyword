@@ -38,7 +38,7 @@ class SaveController extends Controller
 		$keyword = $this->input->getString('keyword');
 		$url     = $this->input->getUrl('url');
 
-		$url = strtolower($url);
+		$url = strtolower(rtrim($url, '/'));
 		$keyword = Regular::sanitize($keyword);
 
 		$keyword = trim($keyword);
