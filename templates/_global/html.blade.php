@@ -60,7 +60,8 @@
                     <hr />
 
                     <footer>
-                        &copy; Powered by <a href="http://simular.co" target="_blank">Simular</a> {{ $datetime->format('Y') }}
+                        &copy; Powered by <a href="http://simular.co" target="_blank">Simular</a> &amp;
+                        <a target="_blank" href="http://lyrasoft.net">LYRASOFT</a> {{ $datetime->format('Y') }}
                     </footer>
                 </div>
             </div>
