@@ -14,6 +14,7 @@ use Keyword\Model\LogModel;
 use Keyword\Model\SearchModel;
 use Windwalker\Core\Controller\Controller;
 use Windwalker\Data\Data;
+use Windwalker\Ioc;
 use Windwalker\Uri\Uri;
 
 /**
@@ -93,6 +94,9 @@ class SaveController extends Controller
 			return $this->backToSearch('Something error', 'danger');
 		}
 
+		$session = Ioc::getSession();
+		$session->set('search.query', null);
+
 		$url = Regular::encode(urlencode($url));
 		$keyword = urlencode($keyword);
 
@@ -115,7 +119,10 @@ class SaveController extends Controller
 			'url' => $this->input->getVar('url'),
 		];
 
-		$this->setRedirect($this->package->router->buildHttp('home', $query), $msg);
+		$session = Ioc::getSession();
+		$session->set('search.query', $query);
+
+		$this->setRedirect($this->package->router->buildHttp('home'), $msg);
 
 		return false;
 	}

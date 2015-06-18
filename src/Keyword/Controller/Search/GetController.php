@@ -9,6 +9,9 @@
 namespace Keyword\Controller\Search;
 
 use Windwalker\Core\Controller\Controller;
+use Windwalker\Data\Data;
+use Windwalker\Ioc;
+use Windwalker\Utilities\ArrayHelper;
 
 /**
  * The GetController class.
@@ -26,8 +29,14 @@ class GetController extends Controller
 	{
 		$view = $this->getView();
 
-		$view['keyword'] = $this->input->getString('keyword');
-		$view['url'] = $this->input->getUrl('url');
+		$session = Ioc::getSession();
+		$query = $session->get('search.query', []);
+		$query = new Data($query);
+
+		$view['keyword'] = $query->keyword;
+		$view['url'] = $query->url;
+
+		$session->set('search.query', null);
 
 		return $view->render();
 	}
