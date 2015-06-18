@@ -18,6 +18,7 @@
         "paquettg/php-html-parser": "1.6.*@stable",
 		"fzaninotto/faker": "~1.0@stable",
         "google/recaptcha": "~1.1",
+        "asika/sitemap": "1.*@stable",
         "illuminate/view": "4.*@stable",
 
 		"twig/twig" : "~1.0@stable"

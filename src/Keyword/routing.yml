@@ -7,3 +7,6 @@ result:
 search:
     pattern: /fetch/(url)/(keyword)
     controller: Keyword\Controller\Fetch
+sitemap:
+    pattern: /sitemap
+    controller: Keyword\Controller\Sitemap

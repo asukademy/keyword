@@ -4,8 +4,44 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3a395348f78aa78aecc299764565550",
+    "hash": "1c59c7aa1b9f7a8799e0488dff6b378d",
     "packages": [
+        {
+            "name": "asika/sitemap",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asika32764/php-sitemap.git",
+                "reference": "04e6d5f0430aca38d8a15586a19a83307fe54a6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asika32764/php-sitemap/zipball/04e6d5f0430aca38d8a15586a19a83307fe54a6f",
+                "reference": "04e6d5f0430aca38d8a15586a19a83307fe54a6f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "windwalker/test": "2.*@stable"
+            },
+            "type": "php",
+            "autoload": {
+                "psr-4": {
+                    "Asika\\Sitemap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "description": "PHP Simple Sitemap Generator",
+            "homepage": "https://github.com/asika32764/php-sitemap",
+            "keywords": [
+                "Sitemap",
+                "google",
+                "seo"
+            ],
+            "time": "2015-06-07 15:26:31"
+        },
         {
             "name": "filp/whoops",
             "version": "1.1.6",
@@ -1103,6 +1139,7 @@
         "joomla/http": 0,
         "paquettg/php-html-parser": 0,
         "fzaninotto/faker": 0,
+        "asika/sitemap": 0,
         "illuminate/view": 0,
         "twig/twig": 0,
         "phpunit/phpunit-skeleton-generator": 20
