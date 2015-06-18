@@ -52,11 +52,25 @@ class GoogleEngine extends AbstractEngine
 	 */
 	public function getPage($keyword)
 	{
-		$uri = $this->prepareUri();
+		$uri = $this->prepareUri($keyword);
+
+		return $this->get($uri->toString());
+	}
+
+	/**
+	 * prepareUri
+	 *
+	 * @param string $keyword
+	 *
+	 * @return  \Windwalker\Uri\Uri
+	 */
+	public function prepareUri($keyword)
+	{
+		$uri = parent::prepareUri($keyword);
 
 		$uri->setVar('q', htmlspecialchars($keyword));
 
-		return $this->get($uri->toString());
+		return $uri;
 	}
 
 	/**

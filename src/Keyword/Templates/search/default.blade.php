@@ -13,6 +13,15 @@
                     如果出現「Something error」表示短期內查詢量太大，請稍後再來查詢
                 </p>
 
+                <p class="text-warning">
+                    查詢結果以主機所在位置向搜尋引擎請求的結果為準，且不包含個人 google 記錄加權，因此會與您用瀏覽器查詢的結果稍有不同喔。
+                    搜尋引擎皆使用 tw 語系而非國際版，因此對於中文世界的排名有一定程度參考價值
+                </p>
+
+                <p class="text-danger">
+                    Google 有查詢流量控管，請不要密集大量查詢，這樣會造成其他人也無法使用喔
+                </p>
+
                 <div class="messages">
                     {{ \Windwalker\Core\View\Helper\ViewHelper::showFlash($flashes) }}
                 </div>

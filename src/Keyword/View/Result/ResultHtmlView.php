@@ -8,6 +8,9 @@
 
 namespace Keyword\View\Result;
 
+use Keyword\Engine\GoogleEngine;
+use Keyword\Engine\YahooEngine;
+use Keyword\Helper\ResultHelper;
 use Windwalker\Core\Router\Router;
 use Windwalker\Core\View\BladeHtmlView;
 
@@ -30,5 +33,11 @@ class ResultHtmlView extends BladeHtmlView
 		$data->action = Router::buildHtml('keyword:home');
 		$data->url = urldecode($data->url);
 		$data->keyword = urldecode($data->keyword);
+		$data->googleUrl = (new GoogleEngine)->prepareUri($data->keyword);
+		$data->yahooUrl = (new YahooEngine)->prepareUri($data->keyword);
+
+		// Color
+		$data->googleText = ResultHelper::getColorClass($data->result->google);
+		$data->yahooText = ResultHelper::getColorClass($data->result->yahoo);
 	}
 }

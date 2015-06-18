@@ -127,6 +127,11 @@ class SaveController extends Controller
 	 */
 	protected function checkCaptcha()
 	{
+		if ($this->app->get('recaptcha.ignore', false))
+		{
+			return true;
+		}
+
 		$gRecaptchaResponse = $this->input->post->get('g-recaptcha-response');
 		$remoteIp = $this->input->server->get('REMOTE_ADDR');
 

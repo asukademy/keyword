@@ -64,7 +64,7 @@ abstract class AbstractEngine
 	 *
 	 * @return  Uri
 	 */
-	protected function prepareUri()
+	public function prepareUri($keyword)
 	{
 		$uri = new Uri($this->host);
 

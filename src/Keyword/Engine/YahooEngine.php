@@ -50,11 +50,25 @@ class YahooEngine extends AbstractEngine
 	 */
 	public function getPage($keyword)
 	{
-		$uri = $this->prepareUri();
-
-		echo $uri->setVar('p', htmlspecialchars($keyword));
+		$uri = $this->prepareUri($keyword);
 
 		return $this->get($uri->toString());
+	}
+
+	/**
+	 * prepareUri
+	 *
+	 * @param string $keyword
+	 *
+	 * @return  \Windwalker\Uri\Uri
+	 */
+	public function prepareUri($keyword)
+	{
+		$uri = parent::prepareUri($keyword);
+
+		$uri->setVar('p', htmlspecialchars($keyword));
+
+		return $uri;
 	}
 
 	/**
