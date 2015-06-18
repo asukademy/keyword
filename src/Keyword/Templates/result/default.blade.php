@@ -2,11 +2,11 @@
 @extends('_global.html')
 
 @section('siteTitle')
-網址: {{{ $url }}} - 關鍵字: {{{ $keyword }}} | Google / Yahoo 關鍵字排名查詢
+{{{ $url }}} 在關鍵字「{{{ $keyword }}}」的搜尋排名 | Google： {{{ $result->google }}} - Yahoo： {{{ $result->yahoo }}}
 @stop
 
 @section('meta')
-<meta name="description" content="用 [{{{ $keyword }}}] 搜尋 {{{ $url }}} 的查詢結果，Google 排名：{{{ $result->google }}} ，Yahoo排名：{{{ $result->yahoo }}}。" />
+<meta name="description" content="網址 {{{ $url }}} 在關鍵字「{{{ $keyword }}}」的搜尋排名，Google：{{{ $result->google }}} ，Yahoo：{{{ $result->yahoo }}}。" />
 @stop
 
 @section('body')
