@@ -37,6 +37,7 @@
                 <ul class="nav navbar-nav">
                      @section('nav')
                         <li class="active"><a href="{{ $uri['base.path'] }}">首頁</a></li>
+                        <li><a href="http://simular.co/tools/rwd/" target="_blank">RWD 響應式網站測試</a></li>
                      @show
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
