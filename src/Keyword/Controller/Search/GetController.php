@@ -27,6 +27,11 @@ class GetController extends Controller
 	 */
 	protected function doExecute()
 	{
+		if ($this->app->get('proxy', true))
+		{
+			return null;
+		}
+
 		$view = $this->getView();
 
 		$session = Ioc::getSession();

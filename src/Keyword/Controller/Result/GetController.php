@@ -25,6 +25,11 @@ class GetController extends Controller
 	 */
 	protected function doExecute()
 	{
+		if ($this->app->get('proxy', true))
+		{
+			return null;
+		}
+
 		$url = $this->input->getUrl('url');
 		$keyword = $this->input->getString('keyword');
 
