@@ -38,6 +38,8 @@
                      @section('nav')
                         <li class="active"><a href="{{ $uri['base.path'] }}">首頁</a></li>
                         <li><a href="http://simular.co/tools/rwd/" target="_blank">RWD 響應式網站測試</a></li>
+                        <li><a href="http://simular.co/tools/og/" target="_blank">Open Graph 檢測器</a></li>
+                        <li><a href="http://simular.co/resources/" target="_blank">網頁設計資源彙整</a></li>
                      @show
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -60,8 +62,7 @@
                     <hr />
 
                     <footer>
-                        &copy; Powered by <a href="http://simular.co" target="_blank">Simular</a> &amp;
-                        <a target="_blank" href="http://lyrasoft.net">LYRASOFT</a> {{ $datetime->format('Y') }}
+                        &copy; Powered by <a href="http://simular.co" target="_blank">Simular - 夏木樂網頁設計</a> {{ $datetime->format('Y') }}
                     </footer>
                 </div>
             </div>
